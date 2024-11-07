@@ -5,6 +5,8 @@
 // Lionel-Groulx College
 /////////////////////////////////////////////////////////////////////
 
+import APIServer from "./APIServer.js";
+import RouteRegister from './routeRegister.js';
 
 RouteRegister.add('GET', 'Bookmarks', 'list');
 
@@ -25,9 +27,6 @@ app.post('/api/data', (req, res) => {
       return res.status(400).json({ message: 'Title, text, category, and image are required!' });
   }
 
-  const id = uuidv4();
-
-  const creation = Math.floor(Date.now() / 1000);
 
   const responseData = {
       id,           
