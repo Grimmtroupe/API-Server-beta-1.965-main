@@ -5,8 +5,6 @@
 // Lionel-Groulx College
 /////////////////////////////////////////////////////////////////////
 
-import APIServer from "./APIServer.js";
-import RouteRegister from './routeRegister.js';
 
 RouteRegister.add('GET', 'Bookmarks', 'list');
 
