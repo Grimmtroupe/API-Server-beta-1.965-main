@@ -27,7 +27,6 @@ app.post('/api/data', (req, res) => {
       return res.status(400).json({ message: 'Title, text, category, and image are required!' });
   }
 
-  const creation = Math.floor(Date.now() / 1000);
 
   const responseData = {
       id,           
