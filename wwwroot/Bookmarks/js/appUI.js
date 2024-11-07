@@ -7,7 +7,6 @@ let hold_Periodic_Refresh = false;
 Init_UI();
 
 async function Init_UI() {
-    currentETag = await Bookmarks_API.HEAD();
     renderBookmarks();
     $('#createBookmark').on("click", async function () {
         saveContentScrollPosition();
@@ -112,11 +111,12 @@ async function renderBookmarks() {
     $("#createBookmark").show();
     $("#abort").hide();
     let response = await Bookmarks_API.Get();
-    currentETag = response.ETag;
-    let Bookmarks = response.data;
-    compileCategories(Bookmarks)
-    eraseContent();
-    if (Bookmarks !== null) {
+    if (!Bookmarks_API.error) {
+        currentETag = response.ETag;
+        let Bookmarks = response.data;
+     
+        eraseContent();
+        compileCategories(Bookmarks)
         Bookmarks.forEach(Bookmark => {
             if ((selectedCategory === "") || (selectedCategory === Bookmark.Category))
                 $("#content").append(renderBookmark(Bookmark));
@@ -133,7 +133,7 @@ async function renderBookmarks() {
         });
         // $(".BookmarkRow").on("click", function (e) { e.preventDefault(); })
     } else {
-        renderError("Service introuvable");
+        renderError(Bookmarks_API.currentHttpError);
     }
 }
 function showWaitingGif() {
