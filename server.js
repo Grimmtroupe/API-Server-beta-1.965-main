@@ -12,3 +12,4 @@ RouteRegister.add('GET', 'Bookmarks', 'list');
 
 let server = new APIServer();
 server.start();
+
