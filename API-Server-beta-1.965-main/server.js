@@ -11,22 +11,37 @@ import RouteRegister from './routeRegister.js';
 RouteRegister.add('GET', 'Bookmarks', 'list');
 
 let server = new APIServer();
-server.start();
+let port = process.env.PORT || 5000;
 
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(express.json());
-
+app.use(bodyParser.json());
 
 app.post('/api/data', (req, res) => {
-    const data = req.body; 
-    console.log('Données reçues:', data);
-    
-    
-    res.json({
-        message: 'Données reçues avec succès',
-        receivedData: data
-    });
+  const { title, text, category, image } = req.body;
+
+  if (!title || !text || !category || !image) {
+      return res.status(400).json({ message: 'Title, text, category, and image are required!' });
+  }
+
+  const id = uuidv4();
+
+  const creation = Math.floor(Date.now() / 1000);
+
+  const responseData = {
+      id,           
+      title,      
+      text,         
+      category,    
+      image,       
+      creation,     
+  };
+
+  res.status(200).json(responseData);
 });
+
+
+server.start();
