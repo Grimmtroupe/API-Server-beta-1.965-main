@@ -311,6 +311,7 @@ function renderArticleForm(Article = null) {
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </form>
     `);
+    initImageUploaders();
     initFormValidation();
     $('#articleForm').on("submit", async function (event) {
         event.preventDefault();
