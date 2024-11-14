@@ -307,7 +307,7 @@ function renderArticleForm(Article = null) {
                 value="${Article.Category}"
             />
             <br>
-            <input type="submit" value="Enregistrer" id="saveArticle" class="btn btn-primary">
+            <input type="submit" value="Enregistrer" id="Save" class="btn btn-primary">
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </form>
     `);
