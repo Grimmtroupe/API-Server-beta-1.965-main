@@ -250,8 +250,8 @@ function newArticle() {
     Article.Title = "";
     Article.Text = "";
     Article.Category = "";
-    Articles.Image = "";
-    Articles.Creation = ""
+    /*Articles.Image = "";
+    Articles.Creation = "";*/
     return Article;
 }
 function renderArticleForm(Article = null) {
@@ -278,15 +278,22 @@ function renderArticleForm(Article = null) {
                 InvalidMessage="Le titre comporte un caractère illégal"
                 value="${Article.Title}"
             />
-            <label for="Url" class="form-label">Url </label>
-            <input
-                class="form-control URL"
-                name="Url"
-                id="Url"
-                placeholder="Url"
+            <label for="Text" class="form-label">Text </label>
+            <input 
+                class="form-control Alpha"
+                name="Text" 
+                id="Title" 
+                placeholder="Description"
                 required
-                value="${Article.Url}" 
+                RequireMessage="Veuillez entrer un titre"
+                InvalidMessage="Le titre comporte un caractère illégal"
+                value="${Article.Text}"
             />
+            <label for="Image" class="form-label">Image</label>
+            <input
+                
+            />
+            
             <label for="Category" class="form-label">Catégorie </label>
             <input 
                 class="form-control"
