@@ -7,4 +7,12 @@ export default
         constructor(HttpContext) {
             super(HttpContext, new Repository(new ArticleModel()));
         }
+        
+        list() {
+            this.HttpContext.response.JSON(
+                this.repository.getAll(this.HttpContext.path.params, this.repository.ETag)
+            );
+        }
     }
+
+    
