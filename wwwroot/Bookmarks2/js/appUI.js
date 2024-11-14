@@ -18,7 +18,7 @@ function removeWaitingGif() {
     clearTimeout(waiting);
     $("#waitingGif").remove();
 }
-
+console.log("Bookmark");
 Init_UI();
 
 async function Init_UI() {
@@ -128,6 +128,7 @@ async function compileCategories() {
     }
 }
 async function renderBookmarks(queryString) {
+
     let endOfData = false;
     queryString += "&sort=category";
     if (selectedCategory != "") queryString += "&category=" + selectedCategory;

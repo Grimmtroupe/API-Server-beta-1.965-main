@@ -36,6 +36,20 @@ class Articles_API {
             });
         });
     }
+    static async GetQuery(queryString = "") {
+        Articles_API.initHttpState();
+        return new Promise(resolve => {
+            $.ajax({
+                url: this.API_URL() + queryString,
+                complete: data => {
+                    resolve({ ETag: data.getResponseHeader('ETag'), data: data.responseJSON });
+                },
+                error: (xhr) => {
+                    Articles_API.setHttpErrorState(xhr); resolve(null);
+                }
+            });
+        });
+    }
     static async Save(data, create = true) {
         Articles_API.initHttpState();
         return new Promise(resolve => {

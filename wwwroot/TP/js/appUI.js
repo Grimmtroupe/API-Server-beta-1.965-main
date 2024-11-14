@@ -8,6 +8,7 @@ let itemLayout;
 
 let waiting = null;
 let waitingGifTrigger = 2000;
+
 function addWaitingGif() {
     clearTimeout(waiting);
     waiting = setTimeout(() => {
@@ -128,6 +129,7 @@ async function compileCategories() {
     }
 }
 async function renderArticles(queryString) {
+    alert("b");
     let endOfData = false;
     queryString += "&sort=category";
     if (selectedCategory != "") queryString += "&category=" + selectedCategory;
