@@ -250,8 +250,8 @@ function newArticle() {
     Article.Title = "";
     Article.Text = "";
     Article.Category = "";
-    /*Articles.Image = "";
-    Articles.Creation = "";*/
+    Article.Image = "";
+    /*Articles.Creation = "";*/
     return Article;
 }
 function renderArticleForm(Article = null) {
@@ -289,11 +289,14 @@ function renderArticleForm(Article = null) {
                 InvalidMessage="Le titre comporte un caractère illégal"
                 value="${Article.Text}"
             />
-            <label for="Image" class="form-label">Image</label>
-            <input
-                
-            />
-            
+            <label class="form-label">Image </label>
+            <div   class='imageUploader' 
+                   newImage='${create}' 
+                   controlId='Avatar' 
+                   imageSrc='${Article.Image}' 
+                   waitingImage="Loading_icon.gif">
+            </div>
+            <hr>
             <label for="Category" class="form-label">Catégorie </label>
             <input 
                 class="form-control"
