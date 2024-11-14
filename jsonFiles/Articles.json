@@ -1,1 +1,16 @@
-[{"Id":1,"Title":"asdsfaaaaa","Category":"Something","Creation":12321334,"Text":"AAA"}]
+[
+    {
+        "Id":1,
+        "Title":"asdsfaaaaa",
+        "Category":"Something",
+        "Creation":12321334,
+        "Text":"AAA"
+    },
+    {
+        "Id":2,
+        "Title":"Alli",
+        "Category":"Politique",
+        "Creation":12321334,
+        "Text":"Trump gagne avec une écransant victoire"
+    }
+]
