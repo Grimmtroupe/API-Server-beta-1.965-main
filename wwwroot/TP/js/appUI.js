@@ -129,7 +129,6 @@ async function compileCategories() {
     }
 }
 async function renderArticles(queryString) {
-    alert("b");
     let endOfData = false;
     queryString += "&sort=category";
     if (selectedCategory != "") queryString += "&category=" + selectedCategory;
@@ -190,7 +189,6 @@ async function renderDeleteArticleForm(id) {
     let response = await Articles_API.Get(id)
     if (!Articles_API.error) {
         let Article = response.data;
-        let favicon = makeFavicon(Article.Url);
         if (Article !== null) {
             $("#articleForm").append(`
         <div class="ArticledeleteForm">
@@ -200,7 +198,7 @@ async function renderDeleteArticleForm(id) {
                 <div class="ArticleContainer noselect">
                     <div class="ArticleLayout">
                         <div class="Article">
-                            <a href="${Article.Url}" target="_blank"> ${favicon} </a>
+                            <a href="${Article.Url}" target="_blank"></a>
                             <span class="ArticleTitle">${Article.Title}</span>
                         </div>
                         <span class="ArticleCategory">${Article.Category}</span>
@@ -250,24 +248,22 @@ function newArticle() {
     Article = {};
     Article.Id = 0;
     Article.Title = "";
-    Article.Url = "";
+    Article.Text = "";
     Article.Category = "";
+    Articles.Image = "";
+    Articles.Creation = ""
     return Article;
 }
 function renderArticleForm(Article = null) {
     hideArticle();
     let create = Article == null;
-    let favicon = `<div class="big-favicon"></div>`;
     if (create)
         Article = newArticle();
-    else
-        favicon = makeFavicon(Article.Url, true);
     $("#actionTitle").text(create ? "Création" : "Modification");
     $("#articleForm").show();
     $("#articleForm").empty();
     $("#articleForm").append(`
         <form class="form" id="articleForm">
-            <a href="${Article.Url}" target="_blank" id="faviconLink" class="big-favicon" > ${favicon} </a>
             <br>
             <input type="hidden" name="Id" value="${Article.Id}"/>
 
@@ -306,12 +302,6 @@ function renderArticleForm(Article = null) {
         </form>
     `);
     initFormValidation();
-    $("#Url").on("change", function () {
-        let favicon = makeFavicon($("#Url").val(), true);
-        $("#faviconLink").empty();
-        $("#faviconLink").attr("href", $("#Url").val());
-        $("#faviconLink").append(favicon);
-    })
     $('#articleForm').on("submit", async function (event) {
         event.preventDefault();
         let Article = getFormData($("#articleForm"));
@@ -329,24 +319,13 @@ function renderArticleForm(Article = null) {
         showArticle();
     });
 }
-function makeFavicon(url, big = false) {
-    // Utiliser l'API de google pour extraire le favicon du site pointé par url
-    // retourne un élément div comportant le favicon en tant qu'image de fond
-    ///////////////////////////////////////////////////////////////////////////
-    if (url.slice(-1) != "/") url += "/";
-    let faviconClass = "favicon";
-    if (big) faviconClass = "big-favicon";
-    url = "http://www.google.com/s2/favicons?sz=64&domain=" + url;
-    return `<div class="${faviconClass}" style="background-image: url('${url}');"></div>`;
-}
 function renderArticle(Article) {
-    let favicon = makeFavicon(Article.Url);
     return $(`
      <div class="ArticleRow" id='${Article.Id}'>
         <div class="ArticleContainer noselect">
             <div class="ArticleLayout">
                 <div class="Article">
-                    <a href="${Article.Url}" target="_blank"> ${favicon} </a>
+                    <a href="${Article.Url}" target="_blank"> </a>
                     <span class="ArticleTitle">${Article.Title}</span>
                 </div>
                 <span class="ArticleCategory">${Article.Category}</span>
