@@ -263,7 +263,7 @@ function renderArticleForm(Article = null) {
     $("#articleForm").show();
     $("#articleForm").empty();
     $("#articleForm").append(`
-        <form class="form" id="articleForm">
+        <form class="form" id="ArticleForm">
             <br>
             <input type="hidden" name="Id" value="${Article.Id}"/>
 
@@ -289,10 +289,10 @@ function renderArticleForm(Article = null) {
                 InvalidMessage="Le titre comporte un caractère illégal"
                 value="${Article.Text}"
             />
-            <label class="form-label">Image </label>
+            <label class="form-label">Image</label>
             <div   class='imageUploader' 
                    newImage='${create}' 
-                   controlId='Avatar' 
+                   controlId='Image' 
                    imageSrc='${Article.Image}' 
                    waitingImage="Loading_icon.gif">
             </div>
@@ -313,9 +313,10 @@ function renderArticleForm(Article = null) {
     `);
     initImageUploaders();
     initFormValidation();
-    $('#articleForm').on("submit", async function (event) {
+    $('#ArticleForm').on("submit", async function (event) {
         event.preventDefault();
-        let Article = getFormData($("#articleForm"));
+        let Article = getFormData($("#ArticleForm"));
+        console.log(Article);
         Article = await Articles_API.Save(Article, create);
         if (!Articles_API.error) {
             showArticle();

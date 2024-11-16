@@ -8,7 +8,7 @@ export default class Article extends Model {
         this.addField('Text', 'string');
         this.addField('Category', 'string');
         this.addField('Image', 'asset');
-        this.addField('Creation', 'integer');
+       // this.addField('Creation', 'integer');
               
         this.setKey("Title");
     }
