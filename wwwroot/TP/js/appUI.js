@@ -336,10 +336,13 @@ function renderArticle(Article) {
         <div class="ArticleContainer noselect">
             <div class="ArticleLayout">
                 <div class="Article">
-                    <a href="${Article.Url}" target="_blank"> </a>
+                    <span class="ArticleCategory">${Article.Category}</span>
                     <span class="ArticleTitle">${Article.Title}</span>
+                    <img src="${Article.Image}" class="appLogo" alt="" title="NEWS">
+                    <span class="ArticleTitle">${Article.Creation}</span>
+                    <span class="ArticleTitle">${Article.Text}</span>
                 </div>
-                <span class="ArticleCategory">${Article.Category}</span>
+                
             </div>
             <div class="ArticleCommandPanel">
                 <span class="editCmd cmdIcon fa fa-pencil" editArticleId="${Article.Id}" title="Modifier ${Article.Title}"></span>
