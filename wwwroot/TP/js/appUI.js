@@ -266,7 +266,10 @@ function renderArticleForm(Article = null) {
         <form class="form" id="ArticleForm">
             <br>
             <input type="hidden" name="Id" value="${Article.Id}"/>
-
+    
+            <!-- Hidden Creation Field -->
+            <input type="hidden" name="Creation" id="Creation" value="${Article.Creation || Date.now()}"/>
+    
             <label for="Title" class="form-label">Titre </label>
             <input 
                 class="form-control Alpha"
@@ -316,7 +319,6 @@ function renderArticleForm(Article = null) {
     $('#ArticleForm').on("submit", async function (event) {
         event.preventDefault();
         let Article = getFormData($("#ArticleForm"));
-        console.log(Article);
         Article = await Articles_API.Save(Article, create);
         if (!Articles_API.error) {
             showArticle();
@@ -330,6 +332,7 @@ function renderArticleForm(Article = null) {
     $('#cancel').on("click", function () {
         showArticle();
     });
+    
 }
 function renderArticle(Article) {
     return $(`
@@ -337,10 +340,12 @@ function renderArticle(Article) {
         <div class="ArticleContainer noselect">
             <div class="ArticleLayout">
                 <div class="Article">
-                    <span class="ArticleCategory">${Article.Category}</span>
-                    <span class="ArticleTitle">${Article.Title}</span>
-                    <img src="${Article.Image}" class="appLogo" alt="" title="NEWS">
-                    <span class="ArticleTitle">${Article.Creation}</span>
+                    <span class="ArticleCategory">${Article.Category}</span><br>
+                    <br>
+                    <span class="ArticleTitle">${Article.Title}</span><br>
+                    <img src="${Article.Image}" class="appLogoImage" alt="" title="NEWS"><br>
+                    <span class="ArticleTitle">${Article.Creation}</span><br>
+                    <br>
                     <span class="ArticleTitle">${Article.Text}</span>
                 </div>
                 
