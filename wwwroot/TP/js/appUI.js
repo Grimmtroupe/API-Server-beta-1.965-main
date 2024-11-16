@@ -266,7 +266,10 @@ function renderArticleForm(Article = null) {
         <form class="form" id="ArticleForm">
             <br>
             <input type="hidden" name="Id" value="${Article.Id}"/>
-
+    
+            <!-- Hidden Creation Field -->
+            <input type="hidden" name="Creation" id="Creation" value="${Article.Creation || Date.now()}"/>
+    
             <label for="Title" class="form-label">Titre </label>
             <input 
                 class="form-control Alpha"
@@ -316,7 +319,6 @@ function renderArticleForm(Article = null) {
     $('#ArticleForm').on("submit", async function (event) {
         event.preventDefault();
         let Article = getFormData($("#ArticleForm"));
-        console.log(Article);
         Article = await Articles_API.Save(Article, create);
         if (!Articles_API.error) {
             showArticle();
@@ -330,6 +332,7 @@ function renderArticleForm(Article = null) {
     $('#cancel').on("click", function () {
         showArticle();
     });
+    
 }
 function renderArticle(Article) {
     return $(`
