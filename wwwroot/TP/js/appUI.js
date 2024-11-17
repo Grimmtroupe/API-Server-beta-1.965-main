@@ -345,7 +345,7 @@ function renderArticle(Article) {
                     <span class="ArticleTitle">${Article.Title}</span><br>
                     <img src="${Article.Image}" class="appLogoImage" alt="" title="NEWS"><br>
                     <span class="ArticleTitle">${Article.Creation}</span><br>
-                    <br>
+                    
                     <span class="ArticleTitle">${Article.Text}</span>
                 </div>
                 
