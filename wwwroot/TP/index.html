@@ -20,9 +20,11 @@
         <div id="header">
             <img src="globe-news.jpg" class="appLogo" alt="" title="NEWS">
             <h4 id="actionTitle">Actualité</h4>
-            <i class="cmdIcon fa fa-plus" id="createArticle" title="Ajouter un favori"></i>
+            <input type="text" class="searchBox" id="searchBox" placeholder="Recherche..." title="Mots-clés">
+            <i class="cmdIcon fa fa-magnifying-glass" id="Search" title="chercher mots-clés"></i>
+            <i class="cmdIcon fa fa-plus" id="createArticle" title="Ajouter un article"></i>
             <i class="cmdIcon fa fa-times" id="abort" title="Annuler"></i>
-            <div class="dropdown ms-auto" >
+            <div class="dropdown ms-auto">
                 <div data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="cmdIcon fa fa-ellipsis-vertical"></i>
                 </div>
@@ -47,9 +49,9 @@
                             </div>
                             <div class="ArticleCommandPanel">
                                 <span class="editCmd cmdIcon fa fa-pencil" editArticleId="${Article.Id}"
-                                    title="Modifier ${Article.Title}"></span>
+                                    title="Modifier cet article"></span>
                                 <span class="deleteCmd cmdIcon fa fa-trash" deleteArticleId="${Article.Id}"
-                                    title="Effacer ${Article.Title}"></span>
+                                    title="Effacer cet article"></span>
                             </div>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ let currentETag = "";
 let hold_Periodic_Refresh = false;
 let pageManager;
 let itemLayout;
+let keywords = "";
 
 let waiting = null;
 let waitingGifTrigger = 2000;
@@ -38,11 +39,22 @@ async function Init_UI() {
     $('#aboutCmd').on("click", function () {
         renderAbout();
     });
+    $('#Search').on("click",function () {
+        Search();
+    });
     showArticle();
     start_Periodic_Refresh();
 }
+function Search()
+{
+    showArticle();
+    let keyword = document.getElementById('searchBox').value;
+    keywords = keyword;
+    updateDropDownMenu();
+    pageManager.reset();
+}
 function showArticle() {
-    $("#actionTitle").text("Liste des favoris");
+    $("#actionTitle").text("Actualités");
     $("#scrollPanel").show();
     $('#abort').hide();
     $('#articleForm').hide();
@@ -132,6 +144,8 @@ async function renderArticles(queryString) {
     let endOfData = false;
     queryString += "&sort=category";
     if (selectedCategory != "") queryString += "&category=" + selectedCategory;
+
+    
     addWaitingGif();
     let response = await Articles_API.Get(queryString);
     if (!Articles_API.error) {
@@ -139,7 +153,10 @@ async function renderArticles(queryString) {
         let Articles = response.data;
         if (Articles.length > 0) {
             Articles.forEach(Article => {
-                $("#itemsPanel").append(renderArticle(Article));
+                if(Article.Title.includes(keywords) || Article.Text.includes(keywords))
+                {
+                    $("#itemsPanel").append(renderArticle(Article))
+                }
             });
             $(".editCmd").off();
             $(".editCmd").on("click", function () {
@@ -272,7 +289,7 @@ function renderArticleForm(Article = null) {
     
             <label for="Title" class="form-label">Titre </label>
             <input 
-                class="form-control Alpha"
+                class="form-control"
                 name="Title" 
                 id="Title" 
                 placeholder="Titre"
@@ -283,7 +300,7 @@ function renderArticleForm(Article = null) {
             />
             <label for="Text" class="form-label">Text </label>
             <input 
-                class="form-control Alpha"
+                class="form-control"
                 name="Text" 
                 id="Title" 
                 placeholder="Description"
@@ -334,19 +351,33 @@ function renderArticleForm(Article = null) {
     });
     
 }
+
+const options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+};
+function FormatDate(date)
+{
+    const creationDate = new Date(date);
+    const formattedDate = new Intl.DateTimeFormat('fr-FR', options).format(creationDate);
+    return formattedDate;
+}
 function renderArticle(Article) {
     return $(`
-     <div class="ArticleRow" id='${Article.Id}'>
         <div class="ArticleContainer noselect">
             <div class="ArticleLayout">
                 <div class="Article">
-                    <span class="ArticleCategory">${Article.Category}</span><br>
-                    <br>
-                    <span class="ArticleTitle">${Article.Title}</span><br>
-                    <img src="${Article.Image}" class="appLogoImage" alt="" title="NEWS"><br>
-                    <span class="ArticleTitle">${Article.Creation}</span><br>
+                    <span class="ArticleCategory">${Article.Category}</span>
+                    <span class="ArticleTitle">${Article.Title}</span>
+                    <img class="ArticleImage" src="${Article.Image}" class="appLogoImage" alt="" title="NEWS">
+                    <span class="ArticleCreation">${FormatDate(Article.Creation)}</span><br>
                     
-                    <span class="ArticleTitle">${Article.Text}</span>
+                    <span class="ArticleText">${Article.Text}</span>
                 </div>
                 
             </div>
@@ -355,6 +386,5 @@ function renderArticle(Article) {
                 <span class="deleteCmd cmdIcon fa fa-trash" deleteArticleId="${Article.Id}" title="Effacer ${Article.Title}"></span>
             </div>
         </div>
-    </div>           
     `);
 }
