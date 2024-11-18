@@ -142,21 +142,18 @@ async function compileCategories() {
 }
 async function renderArticles(queryString) {
     let endOfData = false;
-    queryString += "&sort=Creation";
+    queryString += "&sort=Creation,desc";
     if (selectedCategory != "") queryString += "&category=" + selectedCategory;
-    
+    if (keywords != "") queryString += "&keywords=" + keywords;
     addWaitingGif();
     let response = await Articles_API.Get(queryString);
     if (!Articles_API.error) {
         currentETag = response.ETag;
         let Articles = response.data;
-        Articles.reverse();
         if (Articles.length > 0) {
             Articles.forEach(Article => {
-                if(Article.Title.includes(keywords) || Article.Text.includes(keywords))
-                {
-                    $("#itemsPanel").append(renderArticle(Article))
-                }
+                $("#itemsPanel").append(renderArticle(Article))
+                
             });
             $(".editCmd").off();
             $(".editCmd").on("click", function () {
@@ -303,7 +300,7 @@ function renderArticleForm(Article = null) {
                 class="form-control"
                 name="Text" 
                 id="Title" 
-                placeholder="Description"
+                placeholder="Text"
                 required
                 RequireMessage="Veuillez entrer un titre"
                 InvalidMessage="Le titre comporte un caractère illégal"
