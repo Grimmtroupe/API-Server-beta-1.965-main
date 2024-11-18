@@ -142,15 +142,15 @@ async function compileCategories() {
 }
 async function renderArticles(queryString) {
     let endOfData = false;
-    queryString += "&sort=category";
+    queryString += "&sort=Creation";
     if (selectedCategory != "") queryString += "&category=" + selectedCategory;
-
     
     addWaitingGif();
     let response = await Articles_API.Get(queryString);
     if (!Articles_API.error) {
         currentETag = response.ETag;
         let Articles = response.data;
+        Articles.reverse();
         if (Articles.length > 0) {
             Articles.forEach(Article => {
                 if(Article.Title.includes(keywords) || Article.Text.includes(keywords))
